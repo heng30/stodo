@@ -1,4 +1,4 @@
-<div style="display: flex, margin: 8px">
+<div style="display: flex, margin: 20px">
     <img src="./screenshot/1-cn.png" width="200"/>
     <img src="./screenshot/2-cn.png" width="200"/>
 </div>
@@ -6,7 +6,7 @@
 [English Documentation](./README.md)
 
 ### 简介
-这是一款极其简单的`Todo`程序。基于`Rust`和`Slint-UI` GUI框架。该项目能够编译到桌面平台`Windows`，`Linux`和`Macos`。
+这是一款极其简单的`Todo`程序。基于`Rust`和`Slint-UI` GUI框架。该项目能够编译到`Windows`，`Linux`和`Macos`。
 
 ### 如何构建?
 - 安装 `Rust` 和 `Cargo`
