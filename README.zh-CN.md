@@ -1,4 +1,4 @@
-<div style="display: flex, margin: 20px">
+<div style="display: flex, margin: 20px, gap: 20px">
     <img src="./screenshot/1-cn.png" width="200"/>
     <img src="./screenshot/2-cn.png" width="200"/>
 </div>
