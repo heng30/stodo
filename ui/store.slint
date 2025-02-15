@@ -1,0 +1,125 @@
+export enum DeviceType {
+    Desktop,
+    Mobile,
+    Web,
+}
+
+export enum TabIndex {
+    Home,
+    Setting,
+    None,
+}
+
+export enum SettingDetailIndex {
+    Home,
+    Preference,
+    Proxy,
+    About,
+    Help,
+    Donate,
+    None,
+}
+
+export struct SettingPreference {
+    win-width: string,
+    win-height: string,
+    font-size: string,
+    font-family: string,
+    language: string,
+    always-on-top: bool,
+    no-frame: bool,
+    is-dark: bool,
+}
+
+export struct SettingProxy {
+    proxy-type: string,
+    http-url: string,
+    http-port: string,
+    socks5-url: string,
+    socks5-port: string,
+}
+
+//////////////////////////////// Logic Struct Start ////////////////////////////////
+export struct TodoEntry {
+    uuid: string,
+    is-open: bool,
+    title: string,
+    note: string,
+    priority: int,
+}
+
+//////////////////////////////// Logic Struct End  ////////////////////////////////
+
+export global Store {
+    in-out property <DeviceType> device-type: DeviceType.Desktop;
+    in-out property <bool> is-first-run: false;
+    in-out property <bool> is-show-landing-page: false;
+
+    in-out property <TabIndex> current-tab-index: TabIndex.Home;
+    in-out property <SettingDetailIndex> previous-setting-detail-index: SettingDetailIndex.None;
+    in-out property <SettingDetailIndex> current-setting-detail-index: SettingDetailIndex.None;
+
+    in-out property <bool> is-cn: setting-preference.language == "cn";
+    in-out property <SettingPreference> setting-preference: {
+        win-width: 480,
+        win-height: 640,
+        font-size: "16",
+        font-family: "Source Han Sans CN",
+        language: "en",
+        always-on-top: false,
+        no-frame: true,
+        is-dark: false,
+    };
+
+    //////////////////////////////// Logic Start ////////////////////////////////
+    in-out property <TodoEntry> clean-entry;
+    in-out property <TodoEntry> edit-entry;
+    in-out property <bool> is-show-edit-dialog;
+
+    in-out property <[TodoEntry]> todo-entries: [
+        {
+            uuid: "uuid1",
+            is-open: false,
+            title: "Title1",
+            note: "You can adjust the number of spaces in the replacement text to control how many spaces each tab is converted to. For example, to replace tabs with four spaces",
+            priority: 1,
+        },
+        {
+            uuid: "uuid2",
+            is-open: true,
+            title: "Title2",
+            note: "",
+            priority: 2,
+        },
+        {
+            uuid: "uuid3",
+            is-open: true,
+            title: "Title3",
+            note: "You can adjust the number of spaces in the replacement text to control how many spaces each tab is converted to. For example, to replace tabs with four spaces",
+            priority: 3,
+        },
+        {
+            uuid: "uuid4",
+            is-open: true,
+            title: "Title4",
+            note: "You can adjust the number of spaces in the replacement text to control how many spaces each tab is converted to. For example, to replace tabs with four spaces",
+            priority: 4,
+        },
+        {
+            uuid: "uuid5",
+            is-open: true,
+            title: "Title5",
+            note: "You can adjust the number of spaces in the replacement text to control how many spaces each tab is converted to. For example, to replace tabs with four spaces",
+            priority: 5,
+        },
+        {
+            uuid: "uuid6",
+            is-open: true,
+            title: "Title6",
+            note: "You can adjust the number of spaces in the replacement text to control how many spaces each tab is converted to. For example, to replace tabs with four spaces",
+            priority: 6,
+        },
+    ];
+
+    //////////////////////////////// Logic End  ////////////////////////////////
+}

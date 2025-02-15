@@ -1,0 +1,19 @@
+import { Theme, Icons } from "../../theme.slint";
+import { Util } from "../../util.slint";
+import { Logic } from "../../logic.slint";
+import { Store } from "../../store.slint";
+
+import { SettingEntryV2, CenterLayout, IconsDialogSetting, Search, Label } from "../../base/widgets.slint";
+import { BtnField } from "btn-field.slint";
+import { Body } from "body.slint";
+
+export component Home inherits VerticalLayout {
+    padding: Theme.padding * 2;
+    spacing: Theme.spacing * 2;
+
+    Body {
+        height: root.height - root.padding * 2 - root.spacing - bf.preferred-height;
+    }
+
+    bf := BtnField { }
+}

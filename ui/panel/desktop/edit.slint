@@ -1,0 +1,72 @@
+import { Theme, Icons } from "../../theme.slint";
+import { Util } from "../../util.slint";
+import { Logic } from "../../logic.slint";
+import { Store, TodoEntry } from "../../store.slint";
+
+import { SettingDetail, SettingDetailLabel, SettingDetailInner, SettingDetailInnerVbox, CenterLayout, Select, Dialog, LineInput, TxtEdit, ToastStatus } from "../../base/widgets.slint";
+
+export component EditDialog inherits Dialog {
+    title: Logic.tr("Edit");
+    is-prevent-event-forward: true;
+
+    in-out property <TodoEntry> entry: Store.edit-entry;
+
+    init => {
+        title-lineedit.focus();
+    }
+
+    SettingDetailInner {
+        height: Store.setting-preference.win-height.to-float() * 1px * 0.6;
+
+        SettingDetailInnerVbox {
+            SettingDetailLabel {
+                text: Logic.tr("Title");
+            }
+
+            title-lineedit := LineInput {
+                horizontal-stretch: 1;
+                text: root.entry.title;
+            }
+        }
+
+        SettingDetailInnerVbox {
+            SettingDetailLabel {
+                text: Logic.tr("Note");
+            }
+
+            note-lineedit := TxtEdit {
+                height: 150px;
+                text: root.entry.note;
+            }
+        }
+
+        SettingDetailInnerVbox {
+            SettingDetailLabel {
+                text: Logic.tr("Priority");
+            }
+
+            priority-select := Select {
+                values: [1, 2, 3, 4, 5, 6, 7, 8, 9];
+                current-value: root.entry.priority;
+            }
+        }
+    }
+
+    canceled => {
+        Store.is-show-edit-dialog = false;
+    }
+
+    confirmed => {
+        if (title-lineedit.text == "") {
+            Util.show-toast(Logic.tr("Title can not be empty"), ToastStatus.Warning);
+            return;
+        }
+
+        Store.edit-entry.title = title-lineedit.text;
+        Store.edit-entry.note = note-lineedit.text;
+        Store.edit-entry.priority = priority-select.current-value.to-float();
+        Store.is-show-edit-dialog = false;
+
+        Logic.todo-update(Store.edit-entry);
+    }
+}

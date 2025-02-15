@@ -1,0 +1,83 @@
+import { Theme, Store, TabIndex, SettingDetailIndex, Logic, Icons } from "../def.slint";
+import { SettingDialog, AboutDialog, SettingIconsBar } from "../setting/desktop.slint";
+import { Blanket, StatusBar, Divider, AboutSetting, ToolTip, ToolTipSetting, PopupAction, PopupActionSetting } from "../../base/widgets.slint";
+
+import { Home } from "home.slint";
+import {EditDialog} from "edit.slint";
+
+export component DesktopPanel inherits Rectangle {
+    private property <bool> is-show-setting-dialog: Store.current-setting-detail-index == SettingDetailIndex.Home;
+
+    private property <bool> is-show-about-dialog: Store.current-setting-detail-index == SettingDetailIndex.About;
+
+    private property <length> home-height: self.height;
+
+    VerticalLayout {
+        if Store.setting-preference.no-frame: sb := StatusBar {
+            background: Theme.secondary-background;
+            is-show-icon: true;
+            icon: Icons.brand;
+            title: AboutSetting.app-name;
+            is-show-tip: true;
+
+            init => {
+                root.home-height = root.height - self.preferred-height;
+            }
+
+            HorizontalLayout {
+                padding-right: Theme.padding * 2;
+
+                SettingIconsBar {
+                    icon-size: Theme.default-font-size;
+                    h-spacing: Theme.spacing * 3;
+                    show-icon-hover-background: false;
+                    is-show-tip: sb.is-show-tip;
+                    tip-position: sb.tip-position;
+                }
+
+                VerticalLayout {
+                    alignment: LayoutAlignment.center;
+                    Divider {
+                        height: Theme.default-font-size;
+                        width: 2px;
+                    }
+                }
+            }
+        }
+
+        Home {
+            height: root.home-height;
+        }
+    }
+
+    if is-show-setting-dialog || is-show-about-dialog || Store.is-show-edit-dialog: Blanket {
+        clicked => {
+            Logic.switch-setting-detail(SettingDetailIndex.None);
+            Store.is-show-edit-dialog = false;
+        }
+    }
+
+    if Store.is-show-edit-dialog: EditDialog {
+        width: Math.min(1300px, root.width * 0.9);
+    }
+
+    if is-show-setting-dialog: SettingDialog {
+        width: Math.min(1300px, root.width * 0.9);
+        inner-height: Math.min(600px, root.height * 0.65);
+    }
+
+    if is-show-about-dialog: AboutDialog {
+        width: Math.min(1300px, root.width * 0.9);
+        height: Math.min(600px, root.height * 0.85);
+    }
+
+    if PopupActionSetting.is-show: PopupAction {
+        window-width: root.width;
+        window-height: root.height;
+    }
+
+    if ToolTipSetting.is-show: ToolTip {
+        window-width: root.width;
+        window-height: root.height;
+    }
+}
