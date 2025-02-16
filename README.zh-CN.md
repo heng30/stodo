@@ -14,6 +14,9 @@
 - 运行 `make desktop-build-release` 编译桌面平台程序
 - 参考 [Makefile](./Makefile) 了解更多信息
 
+### 排错
+因为`Slint`不支持在`wayland`上设置窗口位置。所以没法通过移动标题栏来移动程序。解决方法是通过编辑`~/.config/stodo/stodo.toml`文件，将`no_frame = true`修改为`no_frame = false`。这会使用系统的标题栏。
+
 ### 参考
 - [Slint Language Documentation](https://slint-ui.com/releases/1.0.0/docs/slint/)
 - [slint::android](https://snapshots.slint.dev/master/docs/rust/slint/android/#building-and-deploying)

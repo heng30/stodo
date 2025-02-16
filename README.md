@@ -14,6 +14,9 @@ It's a dead simple **Todo** APP based on `Rust` and `Slint-UI`. This project can
 - Run `make desktop-build-release` to build a release version desktop application
 - Refer to [Makefile](./Makefile) for more information
 
+### TroubleShoot
+`Slint` does not support setting window position on `wayland`. So you can't move the APP by dragging the title bar. Now, you should edit the configure file: `~/.config/stodo/stodo.toml`. And then changing the `no_frame = true` to `no_frame = false`. It will use the system title bar.
+
 ### Reference
 - [Slint Language Documentation](https://slint-ui.com/releases/1.0.0/docs/slint/)
 - [slint::android](https://snapshots.slint.dev/master/docs/rust/slint/android/#building-and-deploying)
