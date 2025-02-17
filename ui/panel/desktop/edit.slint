@@ -6,10 +6,10 @@ import { Store, TodoEntry } from "../../store.slint";
 import { SettingDetail, SettingDetailLabel, SettingDetailInner, SettingDetailInnerVbox, CenterLayout, Select, Dialog, LineInput, TxtEdit, ToastStatus } from "../../base/widgets.slint";
 
 export component EditDialog inherits Dialog {
-    title: Logic.tr("Edit");
+    title: Logic.tr(entry.uuid == "" ? "Add" : "Edit");
     is-prevent-event-forward: true;
 
-    in-out property <TodoEntry> entry: Store.edit-entry;
+    private property <TodoEntry> entry: Store.edit-entry;
 
     init => {
         title-lineedit.focus();
@@ -61,7 +61,6 @@ export component EditDialog inherits Dialog {
             Util.show-toast(Logic.tr("Title can not be empty"), ToastStatus.Warning);
             return;
         }
-
         Store.edit-entry.title = title-lineedit.text;
         Store.edit-entry.note = note-lineedit.text;
         Store.edit-entry.priority = priority-select.current-value.to-float();

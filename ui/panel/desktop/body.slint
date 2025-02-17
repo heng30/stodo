@@ -7,11 +7,9 @@ import { Store } from "../../store.slint";
 import { SettingEntryV2, CenterLayout, Divider, Label, IconBtn } from "../../base/widgets.slint";
 
 export component Body inherits Rectangle {
-    private property <string> selected-uuid;
-
     TouchArea {
         clicked => {
-            selected-uuid = "";
+            Store.edit-entry = Store.clean-entry;
         }
     }
 
@@ -23,7 +21,7 @@ export component Body inherits Rectangle {
 
             Rectangle {
                 border-radius: Theme.border-radius;
-                border-color: root.selected-uuid == entry.uuid ? Theme.secondary-brand-color : Theme.base-border-color;
+                border-color: Store.edit-entry.uuid == entry.uuid ? Theme.secondary-brand-color : Theme.base-border-color;
                 border-width: 1px;
 
                 drop-shadow-blur: Theme.padding * 2;
@@ -33,7 +31,6 @@ export component Body inherits Rectangle {
 
                 outer-ta := TouchArea {
                     clicked => {
-                        selected-uuid = entry.uuid;
                         Store.edit-entry = entry;
                     }
                 }
@@ -71,10 +68,11 @@ export component Body inherits Rectangle {
 
                         ta := TouchArea {
                             clicked => {
-                                entry.is-open = !entry.is-open;
-                                selected-uuid = entry.uuid;
                                 Store.edit-entry = entry;
+                            }
 
+                            double-clicked => {
+                                entry.is-open = !entry.is-open;
                                 Logic.todo-update(Store.edit-entry);
                             }
                         }

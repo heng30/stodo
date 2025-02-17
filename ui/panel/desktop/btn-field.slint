@@ -38,6 +38,10 @@ export component BtnField inherits VerticalLayout {
             text: Logic.tr("Edit");
 
             clicked() => {
+                if (Store.edit-entry.uuid == "") {
+                    return;
+                }
+
                 Store.is-show-edit-dialog = true;
             }
         }
