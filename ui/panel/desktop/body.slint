@@ -42,6 +42,7 @@ export component Body inherits Rectangle {
                     padding: Theme.padding * 2;
 
                     title-rect := Rectangle {
+
                         HorizontalLayout {
                             alignment: LayoutAlignment.space-between;
                             spacing: Theme.spacing * 2;
@@ -73,6 +74,7 @@ export component Body inherits Rectangle {
 
                             double-clicked => {
                                 entry.is-open = !entry.is-open;
+                                Store.edit-entry = entry;
                                 Logic.todo-update(Store.edit-entry);
                             }
                         }
