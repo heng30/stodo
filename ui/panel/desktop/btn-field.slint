@@ -3,7 +3,7 @@ import { Util } from "../../util.slint";
 import { Logic } from "../../logic.slint";
 import { Store } from "../../store.slint";
 
-import { SettingEntryV2, CenterLayout, Search, Label, IconBtn } from "../../base/widgets.slint";
+import { SettingEntryV2, CenterLayout, ConfirmDialogSetting, Search, Label, IconBtn } from "../../base/widgets.slint";
 
 export component BtnField inherits VerticalLayout {
     private property <length> btn-width: Math.min(root.width * 25%, 120px);
@@ -41,7 +41,6 @@ export component BtnField inherits VerticalLayout {
                 if (Store.edit-entry.uuid == "") {
                     return;
                 }
-
                 Store.is-show-edit-dialog = true;
             }
         }
@@ -55,7 +54,7 @@ export component BtnField inherits VerticalLayout {
             text: Logic.tr("Delete");
 
             clicked() => {
-                Logic.todo-delete(Store.edit-entry.uuid);
+                ConfirmDialogSetting.set(true, Logic.tr("Warning"), Logic.tr("Delete or not?"), "delete-entry", Store.edit-entry.uuid);
             }
         }
     }

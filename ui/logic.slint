@@ -12,9 +12,6 @@ export global Logic {
     callback get-setting-preference() -> SettingPreference;
     callback set-setting-preference(SettingPreference);
 
-    callback get-setting-proxy() -> SettingProxy;
-    callback set-setting-proxy(SettingProxy);
-
     pure callback inner-tr(bool, string) -> string;
     inner-tr(is-cn, text) => {
         return text;
