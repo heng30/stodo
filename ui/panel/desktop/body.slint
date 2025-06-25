@@ -42,7 +42,6 @@ export component Body inherits Rectangle {
                     padding: Theme.padding * 2;
 
                     title-rect := Rectangle {
-
                         HorizontalLayout {
                             alignment: LayoutAlignment.space-between;
                             spacing: Theme.spacing * 2;
@@ -101,6 +100,19 @@ export component Body inherits Rectangle {
                             font-size: Theme.default-font-size;
                             color: Theme.regular-text-color;
                             wrap: word-wrap;
+                        }
+
+                        TouchArea {
+                            clicked => {
+                                Store.edit-entry = entry;
+                            }
+
+                            double-clicked => {
+                                if (Store.edit-entry.uuid == "") {
+                                    return;
+                                }
+                                Store.is-show-edit-dialog = true;
+                            }
                         }
                     }
                 }
